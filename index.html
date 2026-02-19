@@ -3,96 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Альбина</title>
-    <!-- Подключаем красивые шрифты -->
-    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <title>Выздоравливай, Альбина!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
-            overflow: hidden; /* Убираем прокрутку */
+            background-color: #050505;
+            overflow: hidden;
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Контейнер для текста поверх анимации */
-        .container {
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 10;
-            pointer-events: none; /* Чтобы клики проходили сквозь текст */
+            pointer-events: none;
             width: 100%;
-            padding: 20px;
+            padding: 0 20px;
             box-sizing: border-box;
         }
 
         h1 {
             color: #fff;
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            /* Неоновое свечение */
-            animation: neon 1.5s ease-in-out infinite alternate;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055;
+            animation: pulseText 2s infinite;
         }
 
-        p {
-            font-family: 'Marck Script', cursive;
-            color: #ff69b4; /* Розовый */
-            font-size: 2.5rem;
-            margin-top: 10px;
+        p.subtitle {
+            font-family: 'Pacifico', cursive;
+            color: #ffb7b2;
+            font-size: 2rem;
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(255, 183, 178, 0.5);
+        }
+
+        .signature {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 40px;
             opacity: 0;
-            animation: fadeIn 2s ease-out forwards 1s; /* Появляется через 1 секунду */
+            animation: fadeIn 3s ease-in forwards 1s;
         }
 
-        canvas {
-            display: block;
+        .heart-icon {
+            color: #ff0055;
+            display: inline-block;
+            animation: beat 1s infinite;
         }
 
-        /* Анимация неона */
-        @keyframes neon {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00de, 0 0 40px #ff00de;
-            }
-            to {
-                text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6;
-            }
+        @keyframes pulseText {
+            0% { text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055; transform: scale(1); }
+            50% { text-shadow: 0 0 30px #ff4da6, 0 0 60px #ff4da6; transform: scale(1.02); }
+            100% { text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055; transform: scale(1); }
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
         }
 
         @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; }
         }
 
-        /* Адаптив для телефонов */
         @media (max-width: 600px) {
-            h1 { font-size: 3rem; }
-            p { font-size: 1.8rem; }
+            h1 { font-size: 2.5rem; }
+            p.subtitle { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Альбина</h1>
-        <p>у тебя красивые глаза</p>
+    <div id="canvas-container">
+        <canvas id="healingCanvas"></canvas>
     </div>
 
-    <canvas id="canvas"></canvas>
+    <div class="content">
+        <h1>Альбина,<br>выздоравливай!</h1>
+        <p class="subtitle">Пусть ангина уходит скорее...</p>
+        <div class="signature">
+            С любовью, Саша <span class="heart-icon">❤️</span>
+        </div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('canvas');
+        const canvas = document.getElementById('healingCanvas');
         const ctx = canvas.getContext('2d');
-
+        
         let width, height;
         let particles = [];
         
-        // Настройка размера на весь экран
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
@@ -100,12 +121,125 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // Класс частицы (звездочки/искры)
-        class Particle {
-            constructor(x, y, type = 'bg') {
+        // Функция рисования сердца
+        function drawHeart(x, y, size, color, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = color;
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            // Формула сердца
+            ctx.bezierCurveTo(size / 2, -size / 2, size * 2, size / 3, 0, size * 2);
+            ctx.bezierCurveTo(-size * 2, size / 3, -size / 2, -size / 2, 0, 0);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        class HeartParticle {
+            constructor(x, y, isExplosion = false) {
                 this.x = x || Math.random() * width;
                 this.y = y || Math.random() * height;
-                this.type = type; // 'bg' - фон, 'firework' - взрыв
+                this.size = Math.random() * 5 + 2;
+                
+                // Лечебные теплые цвета: розовый, золотой, мягкий красный
+                const colors = ['#ff4d4d', '#ff99cc', '#ffd700', '#ffffff'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = isExplosion ? Math.random() * 5 + 2 : Math.random() * 0.5 + 0.2;
+                
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                
+                this.life = 100;
+                this.decay = isExplosion ? Math.random() * 1.5 + 0.5 : 0; // Фон не исчезает быстро
+                
+                // Если это фоновая частица, она всплывает вверх (как надежда/выздоровление)
+                if (!isExplosion) {
+                    this.vy = -Math.random() * 1 - 0.2; 
+                    this.vx = Math.random() * 0.5 - 0.25;
+                }
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+
+                // Перерождение фоновых частиц
+                if (this.decay === 0) {
+                    if (this.y < -50) {
+                        this.y = height + 50;
+                        this.x = Math.random() * width;
+                    }
+                }
+            }
+
+            draw() {
+                drawHeart(this.x, this.y, this.size, this.color, this.life / 100);
+            }
+        }
+
+        function init() {
+            particles = [];
+            // Создаем много сердец для фона
+            for (let i = 0; i < 60; i++) {
+                particles.push(new HeartParticle());
+            }
+        }
+
+        // Интерактив
+        let fireworks = [];
+        
+        function createExplosion(x, y) {
+            for (let i = 0; i < 30; i++) {
+                fireworks.push(new HeartParticle(x, y, true));
+            }
+        }
+
+        window.addEventListener('click', e => createExplosion(e.clientX, e.clientY));
+        window.addEventListener('mousemove', e => {
+            if (Math.random() > 0.5) { // Не каждый кадр, чтобы не перегружать
+                fireworks.push(new HeartParticle(e.clientX, e.clientY, true));
+            }
+        });
+        window.addEventListener('touchmove', e => {
+             const t = e.touches[0];
+             fireworks.push(new HeartParticle(t.clientX, t.clientY, true));
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Фоновые сердца
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Эффекты от мыши/клика
+            for (let i = 0; i < fireworks.length; i++) {
+                fireworks[i].update();
+                fireworks[i].draw();
+                if (fireworks[i].life <= 0) {
+                    fireworks.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+        
+        // Салют "здоровья" при старте
+        setTimeout(() => createExplosion(width/2, height/2), 800);
+        
+    </script>
+</body>
+</html>                this.type = type; // 'bg' - фон, 'firework' - взрыв
                 
                 const angle = Math.random() * Math.PI * 2;
                 const speed = type === 'firework' ? Math.random() * 5 + 2 : Math.random() * 0.5;
