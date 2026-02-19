@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Для Альбины 🎀</title>
-    <!-- Шрифт в стиле Monster High (Creepster) и милый рукописный -->
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Для Альбины 💖</title>
+    <!-- Милые округлые шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -13,30 +13,39 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: 'Montserrat', sans-serif;
-            /* Фон в стиле Монстр Хай: темно-серый с розовым оттенком */
-            background: radial-gradient(circle at center, #2a2a2a 0%, #000000 100%);
+            font-family: 'Varela Round', sans-serif;
+            /* Ярко-розовый фон в стиле "Барби" или "Дракулауры" */
+            background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* Узор "Аргайл" (ромбики) на фоне */
+        /* Фон с сердечками */
         body::before {
-            content: "";
+            content: "❤";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(45deg, rgba(255, 0, 153, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 0, 153, 0.1) 75%, rgba(255, 0, 153, 0.1)),
-                linear-gradient(45deg, rgba(255, 0, 153, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 0, 153, 0.1) 75%, rgba(255, 0, 153, 0.1));
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-            opacity: 0.3;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
             z-index: 0;
             pointer-events: none;
+            overflow: hidden;
+            /* Генерируем много сердечек через тень текста для оптимизации */
+            text-shadow: 
+                50px 50px rgba(255,255,255,0.4),
+                150px 100px rgba(255,255,255,0.4),
+                250px 200px rgba(255,255,255,0.4),
+                100px 300px rgba(255,255,255,0.4),
+                300px 400px rgba(255,255,255,0.4),
+                50px 500px rgba(255,255,255,0.4);
         }
 
         #canvas-container {
@@ -60,127 +69,122 @@
         }
 
         h1 {
-            font-family: 'Creepster', cursive; /* Шрифт в стиле ужастиков */
-            color: #ff0099; /* Hot Pink */
-            font-size: 3.5rem;
-            line-height: 1.1;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 
-                2px 2px 0px #000, 
-                -1px -1px 0 #00b7ff; /* Голубая обводка */
-            margin-bottom: 10px;
-            transition: all 0.5s ease;
+            font-family: 'Pacifico', cursive;
+            color: #ff007f; /* Ярко-розовый */
+            font-size: 3rem;
+            line-height: 1.2;
+            text-shadow: 3px 3px 0px #fff;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
         }
 
-        p.instruction {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: #00b7ff; /* Ярко-голубой */
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px 20px;
-            border: 2px solid #ff0099;
-            border-radius: 0; /* Острые углы */
-            display: inline-block;
-            box-shadow: 4px 4px 0px #ff0099;
-            transition: opacity 0.5s;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Контейнер для котика */
-        .cat-container {
-            font-size: 6rem;
-            margin: 20px auto;
-            height: 180px;
-            width: 180px;
+        .cat-frame {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px auto;
+            background: #fff;
+            border: 8px solid #ff69b4; /* Розовая рамка */
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
-            /* Рамка в стиле MH */
-            border: 3px dashed #ff0099;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        .cat-emoji {
-            font-size: 5rem;
+        /* Начальное изображение (плачущий векторный котик) */
+        .cat-svg {
+            width: 160px;
+            height: 160px;
         }
 
-        .shake {
-            animation: shake 0.5s;
-            animation-iteration-count: infinite;
-        }
-
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
-
-        /* Картинка котенка */
-        .happy-cat-img {
+        /* Финальное фото */
+        .real-cat-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
-            /* Белая пушистая рамка */
-            box-shadow: 0 0 20px #fff, inset 0 0 20px #fff; 
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none; /* Скрыто до победы */
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
+        p.instruction {
+            font-weight: bold;
+            color: #ff5da2;
+            font-size: 1.3rem;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 5px 0 #ffcce6;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
-        /* Прогресс бар - в стиле молнии/шва */
         .progress-wrapper {
             width: 100%;
             max-width: 280px;
-            height: 30px;
-            background: #000;
-            border: 2px solid #00b7ff;
+            height: 35px;
+            background: #fff;
+            border-radius: 20px;
             margin: 0 auto;
+            padding: 4px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
             position: relative;
-            transform: skewX(-10deg); /* Наклон */
-            box-shadow: 4px 4px 0px #00b7ff;
-            transition: opacity 1s;
         }
 
         .progress-bar {
             width: 0%;
             height: 100%;
-            background: repeating-linear-gradient(
-                90deg,
-                #ff0099,
-                #ff0099 10px,
-                #cc007a 10px,
-                #cc007a 20px
+            background: linear-gradient(90deg, #ff85c1, #ff3399);
+            border-radius: 16px;
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Блик на полоске */
+        .progress-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                -45deg, 
+                rgba(255, 255, 255, .2) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, .2) 50%, 
+                rgba(255, 255, 255, .2) 75%, 
+                transparent 75%, 
+                transparent
             );
-            transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            background-size: 50px 50px;
+            animation: move 2s linear infinite;
+        }
+
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
         }
 
         .progress-text {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) skewX(10deg); /* Обратный наклон текста */
-            color: #fff;
-            font-weight: 900;
-            font-size: 1rem;
-            z-index: 2;
-            text-shadow: 1px 1px 0 #000;
+            transform: translate(-50%, -50%);
+            color: #ff007f;
+            font-weight: bold;
+            font-size: 1.1rem;
+            z-index: 5;
         }
 
         .signature {
@@ -188,22 +192,33 @@
             bottom: 20px;
             width: 100%;
             text-align: center;
-            color: #ff0099;
-            font-family: 'Creepster', cursive;
+            color: #fff;
+            font-family: 'Pacifico', cursive;
             font-size: 1.5rem;
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 0 #00b7ff;
+            text-shadow: 2px 2px 0 rgba(255, 105, 180, 0.5);
         }
 
-        .winner-text {
-            color: #fff !important;
-            text-shadow: 0 0 10px #ff0099, 0 0 20px #ff0099 !important;
+        /* Стили для победы */
+        .winner-title {
+            color: #ff0055 !important;
             transform: scale(1.1);
         }
-        
+
+        .shake-anim {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
         @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .cat-container { width: 150px; height: 150px; }
+            h1 { font-size: 2.2rem; }
+            .cat-frame { width: 180px; height: 180px; }
+            .instruction { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -214,13 +229,29 @@
     </div>
 
     <div class="ui-container">
-        <h1 id="mainTitle">Альбина<br>Солнышко 🎀</h1>
+        <h1 id="mainTitle">Альбина<br>Солнышко ☀️</h1>
         
-        <div class="cat-container" id="cat">
-            <span class="cat-emoji">😿</span>
+        <div class="cat-frame shake-anim" id="catFrame">
+            <!-- SVG Иконка плачущего котика (вектор, всегда работает) -->
+            <svg class="cat-svg" id="sadCatSvg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFD1DC" d="M438.6 156.4c0-37.3-25.2-68.8-59.5-77.9-10.3-2.7-17.7-11.8-18.4-22.4l-1.9-28c-.9-13.6-12.2-24.1-25.8-24.1-12.7 0-23.6 9.2-25.6 21.8l-4.5 28.1c-1.6 10.2-10 18-20.3 19-38.3 3.6-69 32.7-75.9 70.3-1.6 8.7-2.4 17.7-2.4 26.9 0 78.4 63.6 142 142 142s142-63.6 142-142c0-5.1-.3-10.1-.8-15z"/>
+                <path fill="#FFF" d="M305 240c-8.3 0-15-6.7-15-15v-30c0-8.3 6.7-15 15-15s15 6.7 15 15v30c0 8.3-6.7 15-15 15zm130 0c-8.3 0-15-6.7-15-15v-30c0-8.3 6.7-15 15-15s15 6.7 15 15v30c0 8.3-6.7 15-15 15z"/>
+                <circle cx="305" cy="270" r="10" fill="#000" opacity="0.2"/>
+                <circle cx="435" cy="270" r="10" fill="#000" opacity="0.2"/>
+                <!-- Слезы -->
+                <path fill="#00BFFF" d="M295 280c0 10 5 20 10 20s10-10 10-20-5-25-10-25-10 15-10 25zm130 0c0 10 5 20 10 20s10-10 10-20-5-25-10-25-10 15-10 25z"/>
+                <path fill="#FF69B4" d="M370 320c-20 0-30-10-30-10s10 20 30 20 30-20 30-20-10 10-30 10z"/>
+            </svg>
+            
+            <!-- Фото реального котика (скрыто) -->
+            <img src="https://images.unsplash.com/photo-1517423724114-6eb986d013b4?auto=format&fit=crop&w=400&q=80" 
+                 class="real-cat-img" 
+                 id="realCatImg" 
+                 alt="Cute White Kitten"
+                 onerror="this.src='https://placekitten.com/300/300'"> <!-- Запасная картинка -->
         </div>
         
-        <p class="instruction" id="subTitle">Тапай 12 раз, чтобы прогнать болезнь!</p>
+        <p class="instruction" id="subTitle">Тапай 12 раз, чтобы прогнать ангину!</p>
         
         <div class="progress-wrapper" id="progressWrapper">
             <div class="progress-bar" id="progressBar"></div>
@@ -228,7 +259,7 @@
         </div>
     </div>
 
-    <div class="signature">С любовью, Саша 🖤</div>
+    <div class="signature">С любовью, Саша ❤️</div>
 
     <script>
         const canvas = document.getElementById('gameCanvas');
@@ -239,7 +270,9 @@
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const progressWrapper = document.getElementById('progressWrapper');
-        const catContainer = document.getElementById('cat');
+        const catFrame = document.getElementById('catFrame');
+        const sadCatSvg = document.getElementById('sadCatSvg');
+        const realCatImg = document.getElementById('realCatImg');
 
         let width, height;
         let particles = [];
@@ -247,9 +280,9 @@
         const maxClicks = 12;
         let isWon = false;
 
-        // Эмодзи: стиль Monster High (молнии, губы, черепки, сердечки) + лечилки
-        const healEmojis = ['💊', '🩹', '⚡', '💉', '✨', '🎀'];
-        const winEmojis = ['🤍', '🎀', '⚡', '💋', '🐾', '💖'];
+        // Яркие милые эмодзи
+        const healEmojis = ['💊', '🍓', '✨', '🌸', '💖', '🎀'];
+        const winEmojis = ['😻', '💖', '🤍', '🌸', '🧁', '🎀'];
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -258,7 +291,7 @@
         window.addEventListener('resize', resize);
         resize();
 
-        class EmojiParticle {
+        class Particle {
             constructor(x, y, type) {
                 this.x = x;
                 this.y = y;
@@ -266,27 +299,27 @@
                 
                 if (type === 'heal') {
                     this.text = healEmojis[Math.floor(Math.random() * healEmojis.length)];
-                    this.size = Math.random() * 20 + 15; // Чуть меньше размер
+                    this.size = Math.random() * 25 + 20;
                 } else {
                     this.text = winEmojis[Math.floor(Math.random() * winEmojis.length)];
-                    this.size = Math.random() * 25 + 20;
+                    this.size = Math.random() * 30 + 30;
                 }
 
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6 + 2;
+                const speed = Math.random() * 8 + 3;
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed;
                 this.life = 100;
-                this.gravity = 0.2;
+                this.gravity = 0.25;
                 this.rotation = Math.random() * 360;
-                this.rotationSpeed = (Math.random() - 0.5) * 8;
+                this.rotationSpeed = (Math.random() - 0.5) * 10;
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
                 this.vy += this.gravity;
-                this.life -= 2; // Исчезают чуть быстрее
+                this.life -= 1.5;
                 this.rotation += this.rotationSpeed;
             }
 
@@ -304,69 +337,67 @@
             }
         }
 
-        // Клик
         document.addEventListener('click', (e) => {
             if (isWon) {
-                // Меньше частиц при клике после победы
-                createExplosion(e.clientX, e.clientY, 'win', 3);
+                createExplosion(e.clientX, e.clientY, 'win', 5);
                 return;
             }
 
             clicks++;
             
-            // Анимация контейнера
-            catContainer.style.transform = 'scale(0.9) rotate(-5deg)';
-            setTimeout(() => {
-                catContainer.style.transform = 'scale(1) rotate(0deg)';
-            }, 100);
+            // Анимация нажатия
+            catFrame.style.transform = 'scale(0.95)';
+            setTimeout(() => catFrame.style.transform = 'scale(1)', 100);
 
-            // Прогресс
+            // Обновляем прогресс
             const percentage = Math.min(Math.floor((clicks / maxClicks) * 100), 100);
             progressBar.style.width = percentage + '%';
             progressText.innerText = percentage + '%';
 
-            // Частицы при лечении
-            createExplosion(e.clientX, e.clientY, 'heal', 6);
+            createExplosion(e.clientX, e.clientY, 'heal', 7);
 
             if (clicks >= maxClicks) {
                 winGame();
             }
         });
 
+        // Поддержка касания для быстрой реакции
         document.addEventListener('touchstart', (e) => {}, {passive: false});
 
         function createExplosion(x, y, type, count) {
             for (let i = 0; i < count; i++) {
-                particles.push(new EmojiParticle(x, y, type));
+                particles.push(new Particle(x, y, type));
             }
         }
 
         function winGame() {
             isWon = true;
             
-            // 1. Белый пушистый котенок
-            catContainer.innerHTML = '<img src="https://images.unsplash.com/photo-1517423724114-6eb986d013b4?w=400&q=80" class="happy-cat-img" alt="White Kitten">';
-            catContainer.classList.remove('shake');
-            catContainer.style.border = '3px solid #fff'; // Рамка становится белой
-            catContainer.style.boxShadow = '0 0 30px #ff0099';
-
-            // 2. Текст
-            mainTitle.innerHTML = "Выздоравливай,<br>Кицюня 🤍";
-            mainTitle.classList.add('winner-text');
+            // 1. Показываем реального котика
+            sadCatSvg.style.display = 'none';
+            realCatImg.style.display = 'block';
             
-            // 3. Убираем лишнее
+            // Останавливаем тряску и добавляем свечение
+            catFrame.classList.remove('shake-anim');
+            catFrame.style.border = '5px solid #fff';
+            catFrame.style.boxShadow = '0 0 40px #ff007f';
+
+            // 2. Меняем текст
+            mainTitle.innerHTML = "Выздоравливай,<br>Кицюня 💖";
+            mainTitle.classList.add('winner-title');
+            
+            // 3. Прячем интерфейс игры
             subTitle.style.opacity = '0';
             progressWrapper.style.opacity = '0';
 
-            // 4. Салют (аккуратный, не перегруженный)
+            // 4. Праздничный салют
             let loopCount = 0;
             const interval = setInterval(() => {
-                // Вылетает по чуть-чуть в разных местах
-                createExplosion(width/2, height/2, 'win', 8); 
+                createExplosion(width/2, height/2, 'win', 10);
                 createExplosion(Math.random()*width, Math.random()*height, 'win', 5);
                 loopCount++;
-                if (loopCount > 8) clearInterval(interval); // Меньше повторов
-            }, 400); // Медленнее интервал
+                if (loopCount > 10) clearInterval(interval);
+            }, 300);
         }
 
         function animate() {
@@ -383,7 +414,6 @@
             requestAnimationFrame(animate);
         }
 
-        catContainer.classList.add('shake');
         animate();
 
     </script>
