@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Для Альбины ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Подключаем милые шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -12,9 +13,9 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-            touch-action: manipulation; /* Защита от двойного тапа для зума */
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%);
+            touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
         }
@@ -36,50 +37,107 @@
             text-align: center;
             z-index: 10;
             width: 90%;
-            pointer-events: none; /* Чтобы клики проходили сквозь текст на канвас */
+            pointer-events: none; /* Клики проходят сквозь контейнер, но элементы внутри могут быть активны */
         }
 
         h1 {
-            color: #fff;
-            font-size: 2.5rem;
-            line-height: 1.2;
-            font-weight: 900;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
+            font-family: 'Caveat', cursive;
+            color: #4a4a4a;
+            font-size: 3rem;
+            line-height: 1.1;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px #fff;
+            margin-bottom: 10px;
             transition: all 0.5s ease;
         }
 
         p.instruction {
-            font-family: 'Pacifico', cursive;
-            color: #fff;
+            font-family: 'Caveat', cursive;
+            color: #666;
             font-size: 1.8rem;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
             transition: opacity 0.5s;
+        }
+
+        /* Контейнер для котика */
+        .cat-container {
+            font-size: 6rem;
+            margin: 20px auto;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+        }
+
+        /* Анимация дрожания (когда болеет) */
+        .shake {
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* Картинка котенка при победе */
+        .happy-cat-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
         }
 
         /* Прогресс бар */
         .progress-wrapper {
             width: 100%;
-            max-width: 300px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
+            max-width: 280px;
+            height: 35px;
+            background: #fff;
             border-radius: 50px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            border: 2px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid #ffb7b2;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
             transition: opacity 1s;
         }
 
         .progress-bar {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #ff9a9e 0%, #ff6a88 100%);
+            background: repeating-linear-gradient(
+                45deg,
+                #ff9a9e,
+                #ff9a9e 10px,
+                #ffc3a0 10px,
+                #ffc3a0 20px
+            );
             border-radius: 50px;
-            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .progress-text {
@@ -87,35 +145,31 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #fff;
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            color: #d65db1;
+            font-weight: 800;
+            font-size: 1.1rem;
             z-index: 2;
         }
 
         .signature {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             width: 100%;
             text-align: center;
-            color: #fff;
-            font-family: 'Pacifico', cursive;
-            opacity: 0.8;
-            z-index: 5;
-            font-size: 1.2rem;
+            color: #888;
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
         }
 
-        /* Анимация победы */
         .winner-text {
-            color: #ff0055 !important;
+            color: #ff4d6d !important;
             transform: scale(1.1);
-            text-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
         }
         
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            p.instruction { font-size: 1.4rem; }
+            h1 { font-size: 2.5rem; }
+            p.instruction { font-size: 1.5rem; }
+            .cat-container { font-size: 5rem; }
         }
     </style>
 </head>
@@ -127,7 +181,10 @@
 
     <div class="ui-container">
         <h1 id="mainTitle">Альбина, Солнышко,<br>выздоравливай!</h1>
-        <p class="instruction" id="subTitle">Тапай, чтобы уничтожить ангину!</p>
+        
+        <div class="cat-container" id="cat">😿</div>
+        
+        <p class="instruction" id="subTitle">Тапай 12 раз, чтобы прогнать болезнь!</p>
         
         <div class="progress-wrapper" id="progressWrapper">
             <div class="progress-bar" id="progressBar"></div>
@@ -141,18 +198,24 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         
-        // Элементы интерфейса
         const mainTitle = document.getElementById('mainTitle');
         const subTitle = document.getElementById('subTitle');
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const progressWrapper = document.getElementById('progressWrapper');
+        const catElement = document.getElementById('cat');
 
         let width, height;
         let particles = [];
         let clicks = 0;
-        const maxClicks = 5;
+        const maxClicks = 12; // Увеличили количество тапов
         let isWon = false;
+
+        // Эмодзи для лечения (вылетают при клике)
+        const healEmojis = ['💊', '🩹', '🌡️', '✨', '🌸', '🍓'];
+        
+        // Эмодзи для победы
+        const loveEmojis = ['❤️', '💖', '😻', '😽', '💝', '🐱'];
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -161,34 +224,29 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // Функция рисования сердца
-        function drawHeart(x, y, size, color) {
-            ctx.beginPath();
-            ctx.fillStyle = color;
-            ctx.moveTo(x, y);
-            ctx.bezierCurveTo(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
-            ctx.bezierCurveTo(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
-            ctx.fill();
-        }
-
-        class Particle {
+        class EmojiParticle {
             constructor(x, y, type) {
                 this.x = x;
                 this.y = y;
-                this.type = type; // 'virus' (серый дым) или 'heart' (любовь)
-                this.size = Math.random() * 10 + 5;
+                this.type = type;
+                
+                // Выбираем случайный эмодзи
+                if (type === 'heal') {
+                    this.text = healEmojis[Math.floor(Math.random() * healEmojis.length)];
+                    this.size = Math.random() * 20 + 20;
+                } else {
+                    this.text = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+                    this.size = Math.random() * 30 + 30;
+                }
+
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 5 + 2;
+                const speed = Math.random() * 7 + 3;
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed;
                 this.life = 100;
-                this.gravity = 0.1;
-                
-                if (type === 'virus') {
-                    this.color = `rgba(100, 100, 100, ${Math.random()})`;
-                } else {
-                    this.color = `hsl(${Math.random() * 50 + 330}, 100%, 60%)`; // Розовые/Красные
-                }
+                this.gravity = 0.2;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 10;
             }
 
             update() {
@@ -196,40 +254,49 @@
                 this.y += this.vy;
                 this.vy += this.gravity;
                 this.life -= 1.5;
-                this.size -= 0.1;
+                this.rotation += this.rotationSpeed;
             }
 
             draw() {
                 if (this.life <= 0) return;
-                
-                if (this.type === 'heart') {
-                    drawHeart(this.x, this.y, this.size, this.color);
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                }
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.globalAlpha = this.life / 100;
+                ctx.font = `${this.size}px serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.text, 0, 0);
+                ctx.restore();
             }
         }
 
-        // Обработка клика
+        // Клик по экрану
         document.addEventListener('click', (e) => {
             if (isWon) {
-                // Если уже выиграла, просто пускаем салют
-                createExplosion(e.clientX, e.clientY, 'heart', 10);
+                createExplosion(e.clientX, e.clientY, 'love', 5);
                 return;
             }
 
             clicks++;
             
+            // Анимация удара по котику (визуальная отдача)
+            catElement.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                catElement.style.transform = 'scale(1)';
+            }, 100);
+
+            // Меняем эмодзи котика в процессе
+            if (clicks === Math.floor(maxClicks / 3)) catElement.innerText = '😐'; // Чуть лучше
+            if (clicks === Math.floor(maxClicks / 1.5)) catElement.innerText = '🙂'; // Еще лучше
+
             // Обновляем прогресс
-            const percentage = Math.min((clicks / maxClicks) * 100, 100);
+            const percentage = Math.min(Math.floor((clicks / maxClicks) * 100), 100);
             progressBar.style.width = percentage + '%';
             progressText.innerText = percentage + '%';
 
-            // Эффекты "удара" по болезни
-            createExplosion(e.clientX, e.clientY, 'heart', 15);
+            // Выпускаем лечебные частицы
+            createExplosion(e.clientX, e.clientY, 'heal', 8);
 
             // Проверка победы
             if (clicks >= maxClicks) {
@@ -237,41 +304,41 @@
             }
         });
 
-        // Также обрабатываем тач для мобильных (чтобы быстрее реагировало)
+        // Тач событие (чтобы быстрее работало на телефоне)
         document.addEventListener('touchstart', (e) => {
-            // Предотвращаем стандартный зум и скролл
-            // Логика дублируется в click, браузеры сами разберутся, но click надежнее для счетчика
+             // Логика дублируется в click, современные браузеры справляются
         }, {passive: false});
 
         function createExplosion(x, y, type, count) {
             for (let i = 0; i < count; i++) {
-                particles.push(new Particle(x, y, type));
+                particles.push(new EmojiParticle(x, y, type));
             }
         }
 
         function winGame() {
             isWon = true;
             
-            // Меняем интерфейс
-            progressBar.style.background = 'linear-gradient(90deg, #00b09b, #96c93d)'; // Зеленый цвет победы
+            // 1. Меняем котика на красивое фото
+            // Используем надежную картинку милого котенка
+            catElement.innerHTML = '<img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80" class="happy-cat-img" alt="Cute Cat">';
+            catElement.classList.remove('shake'); // Перестаем дрожать
+
+            // 2. Меняем текст
             mainTitle.innerHTML = "Выздоравливай,<br>кицюня ❤️";
             mainTitle.classList.add('winner-text');
-            subTitle.style.opacity = '0'; // Скрываем инструкцию
             
-            // Скрываем бар через секунду
-            setTimeout(() => {
-                progressWrapper.style.opacity = '0';
-            }, 1500);
+            // 3. Скрываем инструкцию и бар
+            subTitle.style.opacity = '0';
+            progressWrapper.style.opacity = '0';
 
-            // Запускаем большой салют
+            // 4. Салют
             let loopCount = 0;
             const interval = setInterval(() => {
-                createExplosion(width/2, height/2, 'heart', 20);
-                createExplosion(width/4, height/3, 'heart', 10);
-                createExplosion(width*0.75, height/3, 'heart', 10);
+                createExplosion(width/2, height/2, 'love', 15);
+                createExplosion(Math.random()*width, Math.random()*height, 'love', 10);
                 loopCount++;
-                if (loopCount > 10) clearInterval(interval);
-            }, 300);
+                if (loopCount > 15) clearInterval(interval);
+            }, 200);
         }
 
         function animate() {
@@ -285,20 +352,11 @@
                     i--;
                 }
             }
-            
-            // Если выиграли, добавляем медленно падающие сердца на фон
-            if (isWon && Math.random() < 0.1) {
-                const p = new Particle(Math.random() * width, -20, 'heart');
-                p.vy = Math.random() * 2 + 1;
-                p.vx = Math.random() * 2 - 1;
-                p.gravity = 0;
-                p.life = 300;
-                particles.push(p);
-            }
-
             requestAnimationFrame(animate);
         }
 
+        // При старте котик дрожит
+        catElement.classList.add('shake');
         animate();
 
     </script>
